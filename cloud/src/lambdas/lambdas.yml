@@ -1,0 +1,10 @@
+feedbackNotification:
+  handler: src/lambdas/sessionStream.handler
+  events:
+    - stream:
+        type: dynamodb
+        arn:
+          Fn::GetAtt:
+            - AWSClassifySessionTable
+            - StreamArn
+        batchSize: 5

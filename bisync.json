@@ -1,0 +1,4 @@
+[
+  ["./cloud/src/requests", "./web/src/requests", "./mobile/src/requests"],
+  ["./web/src/responses", "./mobile/src/responses"]
+]

@@ -1,0 +1,43 @@
+{
+  "name": "aws-classify-example-simple-chat",
+  "version": "1.0.0",
+  "description": "Chat sample app for aws-classify",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "build:static": "cd ../web && npm run build",
+    "debug:offline": "SLS_DEBUG=* node --inspect node_modules/serverless/bin/serverless.js offline -s dev",
+    "install:offline": "node_modules/.bin/sls dynamodb install",
+    "deploy:offline": "node_modules/.bin/sls offline start --stage dev",
+    "deploy:dev": "node_modules/.bin/sls deploy --verbose --stage dev && sls s3sync --stage dev",
+    "remove:dev": "node_modules/.bin/sls remove --stage dev",
+    "deploy:prod": "node_modules/.bin/sls deploy --stage prod && sls s3sync --stage prod"
+  },
+  "author": "Sam Elsamman",
+  "license": "ISC",
+  "devDependencies": {
+    "@serverless-aws/serverless-s3-remover": "^0.6.5",
+    "@types/aws-lambda": "^8.10.103",
+    "@types/node": "^18.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "aws-lambda": "^1.0.7",
+    "eslint": "8.22.0",
+    "serverless-cloudfront-invalidate": "^1.12.2",
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-esbuild": "^1.32.8",
+    "serverless-offline": "8.8.0",
+    "serverless-plugin-scripts": "^1.0.2",
+    "serverless-plugin-typescript": "^2.1.2",
+    "serverless-s3-sync": "^3.0.0",
+    "serverless-webpack": "^5.11.0",
+    "sync-directory": "^5.1.7",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {
+    "@anttiviljami/serverless-stack-output": "^0.3.1",
+    "aws-classify-common": "^0.1.0",
+    "aws-classify-server": "^0.1.7",
+    "dynamodb-localhost": "github:99x/dynamodb-localhost#db30898f8c40932c7177be7b2f1a81360d12876d"
+  }
+}
