@@ -5,7 +5,7 @@ import Person from "./Person";
 function People () {
     return (
         <>
-            {session.people.length > 10 ?
+            {session.people.length > 0 ?
                 <>
                     {session.people.map(person => <Person key={person.name} person={person}/>)}
                 </>
