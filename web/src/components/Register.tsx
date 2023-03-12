@@ -2,8 +2,7 @@ import {observer} from "proxily";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {useState} from "react";
-import {chatServerRequest} from "../store/classify";
-import {session} from "../store";
+import {store} from "../store";
 import {Alert} from "react-bootstrap";
 
 function Register() {
@@ -34,7 +33,7 @@ function Register() {
     async function submit() {
         try {
             setError("");
-            await  session.register(`${firstName} ${lastName}`);
+            await  store.session.register(`${firstName} ${lastName}`);
         } catch (e : any) {
             setError(e.message);
         }

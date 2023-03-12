@@ -2,24 +2,22 @@ import {observer} from "proxily";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {useState} from "react";
-import {session} from "../store";
+import {store} from "../store";
 import {Alert} from "react-bootstrap";
-import {LocalSession} from "../store/LocalSession";
 
 function MessagesFooter() {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     return (
         <div className="messagesFooter">
-            {session.currentName &&
-                <Form>
+            {store.session.currentName &&
+                <div>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Message</Form.Label>
                         <Form.Control value={message} type="textArea"
                                       placeholder="Message ..."
-                                      onKeyDown={e => {
+                                      onKeyUp={e => {
                                           if (e.key === 'Enter') submit();
-                                          return false
                                       }}
                                       onChange={e => setMessage(e.target.value)}/>
                     </Form.Group>
@@ -31,17 +29,14 @@ function MessagesFooter() {
                             ${error}
                         </Alert>
                     }
-                </Form>
+                </div>
             }
        </div>
     );
     async function submit() {
          try {
             setError("");
-            if (message === '/clear')
-                Object.assign(session, new LocalSession());
-            else
-                await session.sendMessage(message);
+            await store.session.sendMessage(message);
             setMessage("");
         } catch (e : any) {
             setError(e.message);

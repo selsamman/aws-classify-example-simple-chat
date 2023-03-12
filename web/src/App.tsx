@@ -1,26 +1,22 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Register from "./components/Register";
 import People from "./components/People";
-import {session} from "./store";
+import {store} from "./store";
 import Messages from "./components/Messages";
 import {observer} from "proxily";
 import Sleep from "./components/Sleep";
 
 function App() {
 
-  useEffect(() => {
-     session.init().then(() => {});
-  }, [])
-
-  return (
+  return store.sessionReady ? (
       <Container fluid>
-          {!!session.name ?
+          {!!store.session.name ?
               <>
-                  {session.sleeping ?
+                  {store.session.sleeping ?
                       <Sleep />
                   :
                       <Row className='subContainer'>
@@ -37,8 +33,9 @@ function App() {
               </Row>
           }
       </Container>
-  );
+  ) : <></>;
 }
+
 
 
 

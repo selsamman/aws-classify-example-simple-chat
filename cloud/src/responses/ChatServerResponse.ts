@@ -19,15 +19,14 @@ export class ChatServerResponse extends ChatServerRequest {
     name = "";
     deferredMessages : Array<DeferredMessage> = [];
 
-    async register(name : string) : Promise<string> {
+    async register(name : string) {
         if ((await getSessions()).find(session => session.name === name))
             throw new Error('Another Session is using that name');
         this.name = name;
         classifyServerless.setUserId(this, name);
-        return classifyServerless.getSessionId(this);
     }
 
-    async connect(name : string) : Promise<string> {
+    async connect(name : string) {
         if (this.name !== name)
             await this.register(name);
 
@@ -42,7 +41,6 @@ export class ChatServerResponse extends ChatServerRequest {
             }
             this.deferredMessages = [];
         }
-        return classifyServerless.getSessionId(this);
     }
 
     async sendMessage(toName : string, message : string) {

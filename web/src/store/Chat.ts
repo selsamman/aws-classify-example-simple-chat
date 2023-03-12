@@ -5,8 +5,9 @@ export class Chat {
     name = "";
     hasSession = false;
     threads : Array<Thread> = [];
-    constructor(name : string) {
+    constructor(name : string, hasSession = true) {
         this.name = name;
+        this.hasSession = hasSession;
     }
 }
 

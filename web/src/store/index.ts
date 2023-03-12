@@ -1,13 +1,21 @@
 import {LocalSession} from "./LocalSession";
-import {persist} from "proxily";
+import {persistAsync} from "proxily";
 import {setSleep, setWake} from "./classify";
+import {persistConfig} from "../localstorage";
 
-export const session = persist(new LocalSession(), {});
+export let store  = {session: new LocalSession(), sessionReady: false};
 
-setSleep(() => session.sleeping = true)
+persistAsync(new LocalSession(), persistConfig).then(s => {
+    store.session = s;
+    store.sessionReady = true;
+    store.session.init().then(() => console.log('session initialized'));
+});
+
+
+setSleep(() => store.session.sleeping = true)
 
 export function wake () {
-    setWake(() => session.sleeping = false);
+    setWake(() => store.session.sleeping = false);
 }
 
 

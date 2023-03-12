@@ -1,7 +1,6 @@
 import {Chat} from "./Chat";
 import {serializable} from "proxily";
-import {chatServerRequest, setSleep, setWake} from "./classify";
-import {session} from "./index";
+import {chatServerRequest} from "./classify";
 import {Thread, ThreadType} from "./Thread";
 import {Person} from "./Person";
 
@@ -50,7 +49,7 @@ export class LocalSession {
     // Send message to the current target person.  It may reach them or be deferred
     async sendMessage(message : string) {
         await chatServerRequest.sendMessage(this.currentName, message);
-        session.addThread(this.name, this.currentName, message);
+        this.addThread(this.name, this.currentName, message);
     }
 
     // Update the chats  based on the sessions (chats for expired sessions effectively removed)
@@ -68,7 +67,7 @@ export class LocalSession {
                 if (chat)
                     chat.hasSession = true;
                 else
-                    this.chats.push(new Chat(session));
+                    this.chats.push(new Chat(session, true));
                 if (session === this.currentName)
                     selectedNameFound = true;
             }
