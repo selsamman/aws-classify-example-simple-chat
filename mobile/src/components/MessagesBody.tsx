@@ -1,16 +1,18 @@
 import {observer} from "proxily";
 import {store} from "../store";
 import Message from "./Message";
+import {ScrollView, View} from "react-native";
+import {styles} from "./style";
 
 function MessagesBody () {
     return (
-        <div className="messagesBody">
-            <div className="messagesScroll">
+        <View style={styles.messageBody}>
+        <ScrollView>
             {store.session.chat?.threads.map((thread, ix) =>
                 <Message key={ix} thread={thread} />)
             }
-            </div>
-        </div>
+        </ScrollView>
+        </View>
     )
 }
 export default observer(MessagesBody);

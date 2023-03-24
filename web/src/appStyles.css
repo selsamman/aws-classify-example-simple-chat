@@ -37,9 +37,13 @@ html, #root, .container-fluid, .subContainer {
     bottom: 10em;
     position: absolute;
     width: 100%;
+
+}
+.messagesScroll {
     scroll-behavior: auto;
     overflow: scroll;
     padding: 1em;
+    height: 100%;
 }
 .inactivePerson, .activePerson, .disabledPerson {
     padding: 1em;

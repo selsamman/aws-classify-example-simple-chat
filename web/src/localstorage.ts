@@ -1,3 +1,4 @@
+export const awsURL = undefined; // Leave it to document.location
 
 if (document.location.search.match(/reset/)) {
     localStorage.setItem('root', "");

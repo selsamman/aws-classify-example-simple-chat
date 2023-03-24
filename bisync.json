@@ -1,4 +1,6 @@
 [
   ["./cloud/src/requests", "./web/src/requests", "./mobile/src/requests"],
-  ["./web/src/responses", "./mobile/src/responses"]
+  ["./web/src/responses", "./mobile/src/responses"],
+  ["./web/src/store", "./mobile/src/store"],
+  ["./cloud/output.json", "./mobile/output.json"]
 ]

@@ -1,7 +1,7 @@
 import {ChatClientRequest} from "../requests/ChatClientRequest";
-import {store} from "../store";
+import {store} from "../store"
 
-export class ChatClientResponse extends  ChatClientRequest{
+export class ChatClientResponse extends  ChatClientRequest {
 
     static interfaceName = "ChatClientRequest";
 
@@ -16,3 +16,4 @@ export class ChatClientResponse extends  ChatClientRequest{
         store.session.addThread(fromName, fromName, message);
     }
 }
+
