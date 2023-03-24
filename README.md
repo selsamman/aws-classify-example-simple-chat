@@ -28,16 +28,21 @@ To get started fort and pull this project. Here are the steps needed to deploy i
 
 * Run NPM install on each of the three sub-project folders
 
-  * cloud which contains the AWS side of the project
+  * ***cloud*** - contains the back-end of the project deployed to AWS
 
-  * web which contains a React Native (CRA) project
+  * ***web*** - contains a React Native (CRA) project deployed to AWS Cloudfront
 
-  * mobile which has an Expo project (not yet implemented)
+  * ***mobile*** - contains an Expo project deployable to Play/App store or 
+    Expo Go App
 
 * Create an AWS and access key and make them available to the Serverless 
 Framework script. This [guide](https://www.serverless.com/framework/docs/providers/aws/guide/credentials) shows you how.
 * From the cloud folder: npm run deploy:dev
-From the web folder: npm start
+* From the web folder: npm start
+* From the mobile folder: npm start
 
 At this point the app will come up on localhost:3000 and it will 
-automatically proxy the requests to the AWS gateway.
+automatically proxy the requests to the AWS gateway.  For the mobile app you 
+can bring it up int he simulator if you have the appropriate X-code/Android 
+Studio tools installed or else just install Expo Go on your mobile device 
+and scan the QR-code generated from ```npm start```
