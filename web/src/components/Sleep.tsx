@@ -1,7 +1,7 @@
 import {observer} from "proxily";
 import {GiNightSleep} from 'react-icons/gi'
 import Button from "react-bootstrap/Button";
-import {wake} from "../store";
+import {store} from "../store";
 
 function Sleep () {
     return (
@@ -16,5 +16,8 @@ function Sleep () {
             </div>
         </div>
     )
+    async function wake() {
+        await store.session.wake();
+    }
 }
 export default observer(Sleep);

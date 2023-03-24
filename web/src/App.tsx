@@ -9,6 +9,10 @@ import {store} from "./store";
 import Messages from "./components/Messages";
 import {observer} from "proxily";
 import Sleep from "./components/Sleep";
+import {classifyClient} from "./store/classify";
+import {ChatClientResponse} from "./responses/ChatClientResponse";
+
+classifyClient.createResponse(ChatClientResponse);
 
 function App() {
 

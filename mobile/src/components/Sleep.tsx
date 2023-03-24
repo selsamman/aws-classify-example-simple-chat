@@ -2,7 +2,7 @@ import {observer} from "proxily";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {Button, View} from "react-native";
 import {styles} from "./style";
-import {wake} from "../store";
+import {store} from "../store";
 
 function Sleep () {
     return (
@@ -13,5 +13,9 @@ function Sleep () {
             </View>
         </View>
     )
+
+    async function wake() {
+        await store.session.wake();
+    }
 }
 export default observer(Sleep);

@@ -55,6 +55,7 @@ export class LocalSession {
     }
 
     async wake () {
+        await classifyClient.initSocket()
         this.sleeping = false;
         this.setSessions(await chatServerRequest.getSessions());
     }

@@ -1,5 +1,6 @@
 import {ChatClientRequest} from "../requests/ChatClientRequest";
 import {store} from "../store"
+import {classifyClient} from "../store/classify";
 
 export class ChatClientResponse extends  ChatClientRequest {
 

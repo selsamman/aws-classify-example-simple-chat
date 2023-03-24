@@ -7,6 +7,10 @@ import People from "./src/components/People";
 import {styles} from "./src/components/style";
 import {store} from "./src/store";
 import {observer} from "proxily";
+import {classifyClient} from "./src/store/classify";
+import {ChatClientResponse} from "./src/responses/ChatClientResponse";
+
+classifyClient.createResponse(ChatClientResponse);
 
 function App() {
   return (
