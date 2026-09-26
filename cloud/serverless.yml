@@ -1,4 +1,5 @@
 service: 'aws-classify-example-simple-chat'
+frameworkVersion: '4'
 
 custom:
 
@@ -16,16 +17,7 @@ custom:
 
   directories:
     responseHandlers: "src/responses/index"
-    staticWebsite: "../web/build"
     includeFiles: "../../aws-classify/aws-classify-server/yml"
-
-  #Include any scripts needed to build your static site
-  scripts:
-    hooks:
-      'before:deploy:deploy': npm run build:static
-
-  #enable stream view
-  StreamViewEnabled: false
 
   yml: "${self:custom.directories.includeFiles}/"
   stage: ${opt:stage,'dev'}
@@ -33,37 +25,18 @@ custom:
   domainName: ${self:custom.prefixes.${self:custom.stage}}${self:custom.domain}
   handler: "src/responses/index"
   bucketName: ${self:custom.domainName}
-  s3Sync:
-    noSync: true
-    buckets:
-      - bucketName: ${self:custom.bucketName}
-        localDir: ${self:custom.directories.staticWebsite}
-  cloudfrontInvalidate: ${file(${self:custom.yml}/custom-cloudfront.yml)}
   serverless-offline:
     httpPort: 4000
-  dynamodb: ${file(${self:custom.yml}/custom-dynamodb.yml)}
-
-  remover:
-    buckets:
-      - ${self:custom.bucketName}
-
-  output:
-    #handler: scripts/output.handler # Same syntax as you already know
-    file: output.json # toml, yaml, yml, and json format is available
+    websocketPort: 3001
+    useInProcess: true
+    localEnvironment: true
 
 plugins:
-  - serverless-plugin-scripts
-  - '@anttiviljami/serverless-stack-output'
-  - serverless-s3-sync
-  - "@serverless-aws/serverless-s3-remover"
-  - serverless-cloudfront-invalidate
-  - serverless-plugin-typescript
-  - serverless-dynamodb-local
   - serverless-offline
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs22.x
   region: us-east-1
   websocketsApiRouteSelectionExpression: $request.body.action
   logs:
@@ -78,10 +51,7 @@ provider:
 
 functions:
   - ${file(${self:custom.yml}/functions.yml)}
-  - ${file('src/lambdas/lambdas.yml')}
 
 resources:
   - ${file(${self:custom.yml}/resources-website.yml)}
-  - ${file(${self:custom.yml}/resources-dynamodb-stream.yml)}
-
-
+  - ${file(${self:custom.yml}/resources-dynamodb.yml)}

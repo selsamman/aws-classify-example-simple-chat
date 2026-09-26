@@ -19,16 +19,24 @@ export class ChatServerResponse extends ChatServerRequest {
     name = "";
     deferredMessages : Array<DeferredMessage> = [];
 
-    async register(name : string) {
-        if ((await getSessions()).find(session => session.name === name))
+    async register(name : string) : Promise<Array<string>> {
+        const sessions = await getSessions();
+        if (sessions.find(session => session.name === name))
             throw new Error('Another Session is using that name');
         this.name = name;
         classifyServerless.setUserId(this, name);
+        const sessionNames = [...sessions.map(session => session.name), name];
+        await notifySessions(sessions, sessionNames, classifyServerless.getSessionId(this));
+        return sessionNames;
     }
 
     async connect(name : string) {
         if (this.name !== name)
             await this.register(name);
+        else {
+            const sessions = await getSessions();
+            await notifySessions(sessions, sessions.map(session => session.name), classifyServerless.getSessionId(this));
+        }
 
         classifyServerless.setUserId(this, name);
 
@@ -71,6 +79,19 @@ export class ChatServerResponse extends ChatServerRequest {
 serializable({ChatServerResponse, DeferredMessage});
 
 type Sessions = Array<{name: string, sessionId: string}>;
+
+async function notifySessions(sessions : Sessions, names : Array<string>, senderSessionId : string) {
+    for (const session of sessions) {
+        if (session.sessionId === senderSessionId)
+            continue;
+        try {
+            const request = await classifyServerless.createRequestForSession(session.sessionId, ChatClientRequest);
+            await request.sessions(names);
+        } catch (_e) {
+            // An existing session may no longer have an open WebSocket.
+        }
+    }
+}
 
 // Return a list containing the sessions and names of everyone
 export async function getSessions () : Promise<Sessions> {

@@ -12,6 +12,7 @@ coverage/
 
 # production
 /build
+/web/dist/
 
 # misc
 .DS_Store

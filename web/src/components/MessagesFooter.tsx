@@ -13,7 +13,7 @@ function MessagesFooter() {
             {store.session.currentName &&
                 <div>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Message</Form.Label>
+                        <Form.Label>Message {store.session.currentName}:</Form.Label>
                         <Form.Control value={message} type="textArea"
                                       placeholder="Message ..."
                                       onKeyUp={e => {

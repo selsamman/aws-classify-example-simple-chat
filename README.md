@@ -23,26 +23,32 @@ All of these resources are configured by the Serverless Framework and deployed b
 ## Sample Chat Application
 
 The easiest way to learn about aws-classify is to start with a simple app 
-stack for a chat app that demonstrate all of the key features of aws-classify. It lets you instantly send messages to another user you select from a list. The list is kept up-to-date by monitoring the sessions that aws-classify using DynamoDB streams and sending the updated list to any client that is connected.
-To get started fort and pull this project. Here are the steps needed to deploy it to AWS.
+stack for a chat app that demonstrate all of the key features of aws-classify. It lets you instantly send messages to another user you select from a list. Registering or reconnecting broadcasts the current session names to other connected clients.
+To get started, fork and pull this project. Here are the steps needed to deploy it to AWS.
 
-* Run NPM install on each of the three sub-project folders
+* Run `npm install` in `cloud` and `web`. Mobile is maintained separately.
+
+  Clone `aws-classify` beside this repository; `cloud/serverless.yml` loads its shared YAML templates from that sibling checkout.
 
   * ***cloud*** - contains the back-end of the project deployed to AWS
 
-  * ***web*** - contains a React Native (CRA) project deployed to AWS Cloudfront
+  * ***web*** - contains a Vite and React project deployed to AWS CloudFront
 
   * ***mobile*** - contains an Expo project deployable to Play/App store or 
     Expo Go App
 
 * Create an AWS and access key and make them available to the Serverless 
 Framework script. This [guide](https://www.serverless.com/framework/docs/providers/aws/guide/credentials) shows you how.
-* From the cloud folder: npm run deploy:dev
-* From the web folder: npm start
-* From the mobile folder: npm start
+* Sign in to Serverless Framework v4 and configure AWS credentials.
+* From the cloud folder, run `npm run deploy:dev`. This builds the web client, deploys the AWS stack, uploads the website to S3, and invalidates CloudFront.
+* To develop the web client against the deployed dev stack, run `npm start` from the web folder. Vite reads `cloud/output.json` to proxy `/api` requests.
 
-At this point the app will come up on localhost:3000 and it will 
-automatically proxy the requests to the AWS gateway.  For the mobile app you 
-can bring it up int he simulator if you have the appropriate X-code/Android 
-Studio tools installed or else just install Expo Go on your mobile device 
-and scan the QR-code generated from ```npm start```
+## Local development
+
+Install dependencies in both `cloud` and `web`, then run `npm run dev` from `cloud`. This starts Dynalite, creates the session table from the resolved aws-classify Serverless template, starts Serverless Offline with the HTTP and WebSocket gateways, and starts Vite at <http://127.0.0.1:3000>. It uses an in-memory local database, so the session table and sessions are recreated on each start. No AWS credentials or Java installation are needed for local requests; Serverless Framework v4 still requires its normal sign-in and configuration resolution.
+
+Open the local site in a regular browser window and a private window to test two independent sessions. Restart `npm run dev` after backend code changes; Vite reloads frontend changes automatically.
+
+For backend debugging, run `npm run dev:debug` and attach a Node debugger to port 9229. Serverless Offline runs the handlers in process. The app's TypeScript is transformed with source maps by the offline loader; source maps for published aws-classify code will be addressed when that package is updated.
+
+To run the pieces separately, use `npm run offline` from `cloud` for Dynalite and Serverless Offline, and `npm run dev:offline` from `web` for Vite. `npm run offline:debug` enables the backend inspector. `npm run db:start` and `npm run db:init` expose the database setup as separate commands when needed.
