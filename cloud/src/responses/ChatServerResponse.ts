@@ -1,5 +1,4 @@
-import {ChatServerRequest} from "../requests/ChatServerRequest";
-import {ChatClientRequest} from "../requests/ChatClientRequest";
+import {ChatServerRequest, ChatClientRequest} from "@simple-chat/requests";
 import {classifyServerless} from "aws-classify-server";
 import {serializable} from "js-freeze-dry";
 

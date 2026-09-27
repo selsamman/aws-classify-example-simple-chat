@@ -1,5 +1,9 @@
 {
-  "devDependencies": {
-    "bisync": "^0.9.5"
-  }
+  "name": "aws-classify-example-simple-chat-workspace",
+  "private": true,
+  "workspaces": [
+    "cloud",
+    "web",
+    "common/requests"
+  ]
 }

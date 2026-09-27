@@ -1,0 +1,10 @@
+{
+  "name": "@simple-chat/requests",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "dependencies": {
+    "aws-classify-common": "^0.1.0"
+  }
+}

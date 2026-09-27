@@ -27,6 +27,7 @@
     "typescript": "^5.9.0"
   },
   "dependencies": {
+    "@simple-chat/requests": "0.1.0",
     "@aws-sdk/client-cloudformation": "^3.0.0",
     "@aws-sdk/client-cloudfront": "^3.0.0",
     "@aws-sdk/client-s3": "^3.0.0",

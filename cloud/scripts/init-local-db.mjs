@@ -2,11 +2,12 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 import { CreateTableCommand, DescribeTableCommand, DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
 const execFileAsync = promisify(execFile);
 const cloudDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const serverlessBin = resolve(cloudDir, 'node_modules/serverless/run.js');
+const serverlessBin = createRequire(import.meta.url).resolve('serverless/run.js');
 export const localDynamoEndpoint = 'http://127.0.0.1:4567';
 
 function localClient() {

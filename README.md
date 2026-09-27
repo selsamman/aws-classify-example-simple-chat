@@ -26,13 +26,15 @@ The easiest way to learn about aws-classify is to start with a simple app
 stack for a chat app that demonstrate all of the key features of aws-classify. It lets you instantly send messages to another user you select from a list. Registering or reconnecting broadcasts the current session names to other connected clients.
 To get started, fork and pull this project. Here are the steps needed to deploy it to AWS.
 
-* Run `npm install` in `cloud` and `web`. Mobile is maintained separately.
+* Run `npm install` at the repository root. npm links the private `common/requests` workspace into `cloud` and `web`; no GitHub install or package publication is needed. Mobile is maintained separately.
 
   Clone `aws-classify` beside this repository; `cloud/serverless.yml` loads its shared YAML templates from that sibling checkout.
 
   * ***cloud*** - contains the back-end of the project deployed to AWS
 
   * ***web*** - contains a Vite and React project deployed to AWS CloudFront
+
+  * ***common/requests*** - contains the request classes shared by cloud and web
 
   * ***mobile*** - contains an Expo project deployable to Play/App store or 
     Expo Go App
@@ -45,7 +47,7 @@ Framework script. This [guide](https://www.serverless.com/framework/docs/provide
 
 ## Local development
 
-Install dependencies in both `cloud` and `web`, then run `npm run dev` from `cloud`. This starts Dynalite, creates the session table from the resolved aws-classify Serverless template, starts Serverless Offline with the HTTP and WebSocket gateways, and starts Vite at <http://127.0.0.1:3000>. It uses an in-memory local database, so the session table and sessions are recreated on each start. No AWS credentials or Java installation are needed for local requests; Serverless Framework v4 still requires its normal sign-in and configuration resolution.
+Install dependencies at the repository root, then run `npm run dev` from `cloud`. This starts Dynalite, creates the session table from the resolved aws-classify Serverless template, starts Serverless Offline with the HTTP and WebSocket gateways, and starts Vite at <http://127.0.0.1:3000>. It uses an in-memory local database, so the session table and sessions are recreated on each start. No AWS credentials or Java installation are needed for local requests; Serverless Framework v4 still requires its normal sign-in and configuration resolution.
 
 Open the local site in a regular browser window and a private window to test two independent sessions. Restart `npm run dev` after backend code changes; Vite reloads frontend changes automatically.
 
