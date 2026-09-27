@@ -17,7 +17,7 @@ custom:
 
   directories:
     responseHandlers: "src/responses/index"
-    includeFiles: "../../aws-classify/aws-classify-server/yml"
+    includeFiles: "../node_modules/aws-classify-server/yml"
 
   yml: "${self:custom.directories.includeFiles}/"
   stage: ${opt:stage,'dev'}

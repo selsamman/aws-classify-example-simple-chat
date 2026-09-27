@@ -5,8 +5,10 @@ import Person from "./Person";
 function PeopleBody () {
     return (
         <div className="messagesBody">
+
             {store.session.people.length > 0 ?
                 <>
+                    <div>Select person to chat with ...</div>
                     {store.session.people.map(person => <Person key={person.name} person={person}/>)}
                 </>
                 :
