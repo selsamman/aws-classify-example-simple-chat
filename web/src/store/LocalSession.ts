@@ -3,7 +3,7 @@ import {serializable} from "proxily";
 import {classifyClient} from "./classify";
 import {Thread, ThreadType} from "./Thread";
 import {Person} from "./Person";
-import {ChatServerRequest} from "../requests/ChatServerRequest";
+import {ChatServerRequest} from "@simple-chat/requests";
 
 
 const chatServerRequest = classifyClient.createRequest(ChatServerRequest);

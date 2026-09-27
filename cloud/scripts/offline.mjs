@@ -9,7 +9,9 @@ import { initLocalDb, localDynamoEndpoint } from './init-local-db.mjs';
 const cloudDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const webDir = resolve(cloudDir, '../web');
 const require = createRequire(import.meta.url);
+const requireFromWeb = createRequire(resolve(webDir, 'package.json'));
 const serverlessBinary = require('serverless/binary').getBinary().binaryPath;
+const viteBinary = resolve(dirname(requireFromWeb.resolve('vite/package.json')), 'bin/vite.js');
 const args = new Set(process.argv.slice(2));
 const backendOnly = args.has('--backend-only');
 const debug = args.has('--debug');
@@ -61,7 +63,7 @@ async function waitForPort(port, timeoutMs = 30000) {
 
 try {
   console.log('Starting Dynalite');
-  start('Dynalite', process.execPath, [resolve(cloudDir, 'node_modules/dynalite/cli.js'),
+  start('Dynalite', process.execPath, [require.resolve('dynalite/cli.js'),
     '--host', '127.0.0.1', '--port', '4567'], cloudDir);
   await waitForPort(4567);
   await initLocalDb(stage);
@@ -75,7 +77,7 @@ try {
     AWS_SECRET_ACCESS_KEY: 'local',
     AWS_SESSION_TOKEN: '',
   };
-  if (!existsSync(serverlessBinary)) throw new Error('Serverless v4 executable is missing; run npm install in cloud');
+  if (!existsSync(serverlessBinary)) throw new Error('Serverless v4 executable is missing; run npm install at the repository root');
   if (debug) backendEnv.NODE_OPTIONS = `${process.env.NODE_OPTIONS || ''} --inspect=127.0.0.1:9229 --enable-source-maps`.trim();
   start('Serverless Offline', serverlessBinary,
     ['offline', 'start', '--stage', stage, '--useInProcess'], cloudDir, backendEnv);
@@ -83,7 +85,7 @@ try {
 
   if (!backendOnly) {
     console.log('Starting Vite at http://127.0.0.1:3000');
-    start('Vite', process.execPath, [resolve(webDir, 'node_modules/vite/bin/vite.js'),
+    start('Vite', process.execPath, [viteBinary,
       '--host', '127.0.0.1', '--mode', 'offline'], webDir);
     await waitForPort(3000);
   }

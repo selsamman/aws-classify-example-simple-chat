@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@simple-chat/requests": "0.1.0",
     "aws-classify-client": "^0.1.0",
     "aws-classify-common": "^0.1.0",
     "bootstrap": "^5.2.3",
@@ -23,7 +24,8 @@
   "scripts": {
     "start": "vite --host 0.0.0.0",
     "dev:offline": "vite --host 127.0.0.1 --mode offline",
-    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && vite build",
     "preview": "vite preview"
   }
 }
