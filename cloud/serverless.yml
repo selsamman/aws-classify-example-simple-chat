@@ -26,6 +26,7 @@ custom:
   handler: "src/responses/index"
   bucketName: ${self:custom.domainName}
   serverless-offline:
+    host: 127.0.0.1
     httpPort: 4000
     websocketPort: 3001
     useInProcess: true
