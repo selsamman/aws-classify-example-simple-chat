@@ -1,6 +1,6 @@
 import {observer} from "proxily";
 import {useState} from "react";
-import {store, wake} from "../store";
+import {store} from "../store";
 import {View, Text, TextInput, Button} from "react-native";
 import {styles} from "./style";
 
@@ -28,7 +28,7 @@ function Register() {
             </View>
             {error &&
                 <Text>
-                    ${error}
+                    {error}
                 </Text>
             }
         </View>

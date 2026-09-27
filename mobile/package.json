@@ -1,27 +1,38 @@
 {
   "name": "mobile",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "index.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "start": "node scripts/expo.mjs start",
+    "android": "node scripts/expo.mjs start --android",
+    "ios": "node scripts/expo.mjs start --ios",
+    "ios:offline": "node scripts/expo.mjs start --ios --local-api",
+    "web": "node scripts/expo.mjs start --web",
+    "export": "node scripts/expo.mjs export",
+    "doctor": "expo-doctor",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "1.17.11",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-vector-icons/material-design-icons": "^13.1.2",
+    "@simple-chat/requests": "0.1.0",
     "aws-classify-client": "^0.1.0",
     "aws-classify-common": "^0.1.0",
-    "expo": "~48.0.5",
-    "expo-status-bar": "~1.4.4",
+    "expo": "^57.0.0",
+    "expo-splash-screen": "~57.0.9",
+    "expo-status-bar": "~57.0.1",
     "proxily": "^1.1.5",
-    "react": "18.2.0",
-    "react-native": "0.71.3"
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-web": "^0.21.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@types/react": "~18.0.14",
-    "typescript": "^4.9.4"
+    "@babel/core": "^7.28.0",
+    "@types/react": "~19.2.0",
+    "expo-doctor": "^1.20.4",
+    "typescript": "~6.0.3"
   },
   "private": true
 }

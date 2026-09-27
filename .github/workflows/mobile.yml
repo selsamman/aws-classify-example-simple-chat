@@ -1,0 +1,28 @@
+name: Mobile workspace
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck --workspace cloud
+      - run: npm run build --workspace web
+      - run: npm run typecheck --workspace mobile
+      - run: npm run doctor --workspace mobile
+      - run: npm run export --workspace mobile -- --platform ios
+        env:
+          EXPO_PUBLIC_API_URL: https://example.com/api/dispatch
+      - run: npm run export --workspace mobile -- --platform android
+        env:
+          EXPO_PUBLIC_API_URL: https://example.com/api/dispatch

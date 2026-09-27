@@ -3,7 +3,7 @@ import {serializable} from "proxily";
 import {classifyClient} from "./classify";
 import {Thread, ThreadType} from "./Thread";
 import {Person} from "./Person";
-import {ChatServerRequest} from "../requests/ChatServerRequest";
+import {ChatServerRequest} from "@simple-chat/requests";
 
 
 const chatServerRequest = classifyClient.createRequest(ChatServerRequest);
@@ -34,8 +34,9 @@ export class LocalSession {
 
     // Setup cloud session with our identity which is name
     async register (name : string) {
-        await chatServerRequest.register(name); // Throws error if name in use
+        const sessions = await chatServerRequest.register(name); // Throws error if name in use
         this.name = name;
+        this.setSessions(sessions);
     }
 
     // Called when app starts to either connect or wait for register screen to call register

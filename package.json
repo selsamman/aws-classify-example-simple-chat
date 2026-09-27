@@ -1,9 +1,17 @@
 {
   "name": "aws-classify-example-simple-chat-workspace",
   "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "workspaces": [
     "cloud",
     "web",
+    "mobile",
     "common/requests"
-  ]
+  ],
+  "overrides": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  }
 }

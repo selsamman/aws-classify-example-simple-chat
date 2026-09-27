@@ -26,7 +26,7 @@ The easiest way to learn about aws-classify is to start with a simple app
 stack for a chat app that demonstrate all of the key features of aws-classify. It lets you instantly send messages to another user you select from a list. Registering or reconnecting broadcasts the current session names to other connected clients.
 To get started, fork and pull this project. Here are the steps needed to deploy it to AWS.
 
-* Run `npm install` at the repository root. npm links the private `common/requests` workspace into `cloud` and `web`; no GitHub install or package publication is needed. Mobile is maintained separately.
+* Run `npm install` at the repository root. npm links the private `common/requests` workspace into `cloud`, `web`, and `mobile`; no GitHub install or package publication is needed. Use Node.js 24 LTS for the mobile app.
 
   Clone `aws-classify` beside this repository; `cloud/serverless.yml` loads its shared YAML templates from that sibling checkout.
 
@@ -34,10 +34,9 @@ To get started, fork and pull this project. Here are the steps needed to deploy 
 
   * ***web*** - contains a Vite and React project deployed to AWS CloudFront
 
-  * ***common/requests*** - contains the request classes shared by cloud and web
+  * ***common/requests*** - contains the request classes shared by cloud, web, and mobile
 
-  * ***mobile*** - contains an Expo project deployable to Play/App store or 
-    Expo Go App
+  * ***mobile*** - contains an Expo app; see [mobile/README.md](mobile/README.md) for setup and device testing
 
 * Create an AWS and access key and make them available to the Serverless 
 Framework script. This [guide](https://www.serverless.com/framework/docs/providers/aws/guide/credentials) shows you how.

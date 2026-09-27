@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {View} from 'react-native';
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import Sleep from "./src/components/Sleep";
 import Messages from "./src/components/Messages";
 import Register from "./src/components/Register";
@@ -14,30 +15,23 @@ classifyClient.createResponse(ChatClientResponse);
 
 function App() {
   return (
-    <SafeAreaView style={styles.safeAreaContainer}>
-    <View style={styles.container}>
-        {store.sessionReady &&
-            <>
-                {!!store.session.name ?
-                    <>
-                        {store.session.sleeping ?
-                            <Sleep/>
-                            :
-                            <View style={styles.chatContainer}>
-                                <People/>
-                                <Messages/>
-                            </View>
-                        }
-                    </>
-                    :
-                    <Register/>
-
-                }
-            </>
-        }
-      <StatusBar style="auto" />
-    </View>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.safeAreaContainer}>
+        <View style={styles.container}>
+          {store.sessionReady && (
+            store.session.name ? (
+              store.session.sleeping ? <Sleep /> : (
+                <View style={styles.chatContainer}>
+                  <People />
+                  <Messages />
+                </View>
+              )
+            ) : <Register />
+          )}
+          <StatusBar style="auto" />
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
