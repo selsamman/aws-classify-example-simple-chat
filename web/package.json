@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@simple-chat/requests": "0.1.0",
-    "aws-classify-client": "^0.1.0",
-    "aws-classify-common": "^0.1.0",
+    "aws-classify-client": "^0.2.2",
+    "aws-classify-common": "^0.2.2",
     "bootstrap": "^5.2.3",
     "proxily": "^1.1.5",
     "react": "19.2.3",

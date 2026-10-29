@@ -4,35 +4,29 @@
   "description": "Chat sample app for aws-classify",
   "main": "index.js",
   "scripts": {
-    "build:static": "cd ../web && npm run build",
+    "build:static": "npm --workspace web run build",
     "typecheck": "tsc --noEmit",
     "db:start": "dynalite --host 127.0.0.1 --port 4567",
-    "db:init": "node scripts/init-local-db.mjs",
-    "offline": "node scripts/offline.mjs --backend-only",
-    "offline:debug": "node scripts/offline.mjs --backend-only --debug",
-    "dev": "node scripts/offline.mjs",
-    "dev:debug": "node scripts/offline.mjs --debug",
-    "deploy:dev": "npm run build:static && serverless deploy --stage dev && node scripts/publish.mjs dev",
-    "deploy:prod": "npm run build:static && serverless deploy --stage prod && node scripts/publish.mjs prod",
-    "remove:dev": "node scripts/empty-bucket.mjs dev && serverless remove --stage dev"
+    "db:init": "aws-classify cloud db:init --config serverless.yml",
+    "offline": "aws-classify cloud offline --config serverless.yml --backend-only",
+    "offline:debug": "aws-classify cloud offline --config serverless.yml --backend-only --debug",
+    "dev": "aws-classify cloud offline --config serverless.yml --web ../web",
+    "dev:debug": "aws-classify cloud offline --config serverless.yml --web ../web --debug",
+    "deploy:dev": "npm run build:static && aws-classify cloud deploy --config serverless.yml --stage dev --publish --source ../web/dist",
+    "deploy:prod": "npm run build:static && aws-classify cloud deploy --config serverless.yml --stage prod --publish --source ../web/dist",
+    "remove:dev": "aws-classify cloud remove --config serverless.yml --stage dev"
   },
   "author": "Sam Elsamman",
   "license": "ISC",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.103",
     "@types/node": "^22.0.0",
-    "dynalite": "^4.0.0",
-    "serverless": "^4.43.0",
-    "serverless-offline": "^14.8.2",
+    "aws-classify-tools": "^0.2.2",
     "typescript": "^5.9.0"
   },
   "dependencies": {
     "@simple-chat/requests": "0.1.0",
-    "@aws-sdk/client-cloudformation": "^3.0.0",
-    "@aws-sdk/client-cloudfront": "^3.0.0",
-    "@aws-sdk/client-s3": "^3.0.0",
-    "aws-classify-common": "^0.1.0",
-    "aws-classify-server": "^0.1.7",
-    "mime-types": "^3.0.0"
+    "aws-classify-common": "^0.2.2",
+    "aws-classify-server": "^0.2.2"
   }
 }
