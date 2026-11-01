@@ -18,9 +18,9 @@
     "@simple-chat/requests": "0.1.0",
     "aws-classify-client": "^0.2.2",
     "aws-classify-common": "^0.2.2",
-    "expo": "^57.0.0",
-    "expo-splash-screen": "~57.0.9",
-    "expo-status-bar": "~57.0.1",
+    "expo": "^58.0.21",
+    "expo-splash-screen": "~58.0.12",
+    "expo-status-bar": "~58.0.4",
     "proxily": "^1.1.5",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@babel/core": "^7.28.0",
     "@types/react": "~19.2.0",
-    "expo-doctor": "^1.20.4",
+    "expo-doctor": "^1.21.5",
     "typescript": "~6.0.3"
   },
   "private": true
